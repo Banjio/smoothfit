@@ -25,6 +25,17 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
   },
+  listHeader: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    paddingVertical: 10, 
+    borderBottomColor: '#ccc', 
+    borderBottomWidth: 1, 
+    backgroundColor: '#f9f9f9', 
+  },
+  listHeaderText: { 
+    fontWeight: 'bold', 
+  },
 });
 
 export default styles;
