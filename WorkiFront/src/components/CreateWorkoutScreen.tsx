@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, Alert} from 'react-native';
+import { View, Text, TextInput, Button, FlatList, Alert, TouchableOpacity} from 'react-native';
 import styles from './CreateWorkoutScreenStyles';
 
 class Exercise {
@@ -18,8 +18,14 @@ class Exercise {
   }
 }
 
+let defaultExercises = [
+  new Exercise("Squads", 30, 30),
+  new Exercise("Curls", 60, 30),
+  new Exercise("Bench Press", 30, 30)
+]
+
 const CreateWorkoutScreen: React.FC = () => {
-  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [exercises, setExercises] = useState<Exercise[]>(defaultExercises);
   const [name, setName] = useState('');
   const [duration, setDuration] = useState('');
   const [breakTime, setBreakTime] = useState('');
@@ -32,9 +38,11 @@ const CreateWorkoutScreen: React.FC = () => {
     setBreakTime('');
   };
 
-  const finalizeWorkout = () => {
-    Alert.alert("Please sign in to upload workouts");
+  const deleteExercise = (index: number) => {
+    const updatedExersises = exercises.filter((_, i) => i !== index);
+    setExercises(updatedExersises)
   };
+  const finalizeWorkout = () => Alert.alert("Please sign in to upload workouts");
 
   return (
     <View style={styles.container}>
@@ -67,13 +75,17 @@ const CreateWorkoutScreen: React.FC = () => {
             <Text style={styles.listHeaderText}>Name</Text> 
             <Text style={styles.listHeaderText}>Duration</Text> 
             <Text style={styles.listHeaderText}>Break Time</Text> 
+            <Text style={styles.listHeaderText}>Action</Text>
           </View>
         )}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View style={styles.listItem}>
             <Text>{item.name}</Text>
             <Text>{item.duration} sec</Text>
             <Text>{item.breakTime} sec</Text>
+            <TouchableOpacity onPress={() => deleteExercise(index)}> 
+              <Text style={styles.deleteButtonText}>Delete</Text>
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}

@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
   listHeaderText: { 
     fontWeight: 'bold', 
   },
+  deleteButtonText: {
+    color: 'red',
+  },
 });
 
 export default styles;
